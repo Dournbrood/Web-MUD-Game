@@ -17,7 +17,7 @@ const NavBar = () => {
     
     return (
         <>
-        <Button ref={btnRef} variantColor="teal" onClick={onOpen}>
+        <Button  ref={btnRef} variantColor="teal" onClick={onOpen}>
             Menu
         </Button>
         <Drawer
