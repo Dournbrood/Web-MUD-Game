@@ -10,7 +10,7 @@ import {
     Button,
     useDisclosure,
 } from "@chakra-ui/core";
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const NavBar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,16 +33,16 @@ const NavBar = () => {
                 <DrawerHeader>MUD Menu</DrawerHeader>
         
                 <DrawerFooter>
-                    <Link to='/login'>
+                    <NavLink to='/login'>
                         <Button variant="outline" mr={3} onClick={onClose}>
                         Log In
                         </Button>
-                    </Link>
-                    <Link to='/register'>
+                    </NavLink>
+                    <NavLink to='/register'>
                         <Button variant="outline" mr={3} onClick={onClose}>
                         Sign Up
                         </Button>
-                    </Link>
+                    </NavLink>
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>
