@@ -8,8 +8,9 @@ import {
     DrawerContent,
     DrawerCloseButton,
     Button,
-    useDisclosure
+    useDisclosure,
 } from "@chakra-ui/core";
+import { Link } from 'react-router-dom'
 
 const NavBar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,12 +33,16 @@ const NavBar = () => {
                 <DrawerHeader>MUD Menu</DrawerHeader>
         
                 <DrawerFooter>
-                    <Button variant="outline" mr={3} onClick={onClose}>
-                    Log In
-                    </Button>
-                    <Button variant="outline" mr={3} onClick={onClose}>
-                    Sign Up
-                    </Button>
+                    <Link to='/login'>
+                        <Button variant="outline" mr={3} onClick={onClose}>
+                        Log In
+                        </Button>
+                    </Link>
+                    <Link to='/register'>
+                        <Button variant="outline" mr={3} onClick={onClose}>
+                        Sign Up
+                        </Button>
+                    </Link>
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>
