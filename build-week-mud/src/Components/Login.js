@@ -1,65 +1,69 @@
-import React, {useState, useContext} from "react";
-import { Input, Button } from "@chakra-ui/core";
+import React, { useState, useContext } from "react";
+import { Input, Button, Box, InputGroup } from "@chakra-ui/core";
 
-const Login = (props) => {};
+const Login = (props) => {
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
-const [credentials, setCredentials] = useState({
-    username: '',
-    password: '',
-})
-const [isLoading, setIsLoading] = useState(false);
-
-//handleChanges
-const handleChanges = (event) => {
+  //handleChanges
+  const handleChanges = (event) => {
     event.persist();
     setCredentials({
-        ...credentials,
-        [event.target.name]: event.target.value
-    })
-}
+      ...credentials,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-const handleLoginSubmit = (event) => {
+  const handleLoginSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-        axiosWithAuth()
-            .post('', credentials)
-            .then(response => {
-                setCredentials({
-                    username: '',
-                    password: ''
-                });
-            })
-            .catch(error => {
-                console.log('Invalid Login: ', error)
-                setIsLoading(false)
-            })
-    }
-}
+    //   axiosWithAuth()
+    //     .post("", credentials)
+    //     .then((response) => {
+    //       setCredentials({
+    //         username: "",
+    //         password: "",
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       console.log("Invalid Login: ", error);
+    //       setIsLoading(false);
+    //     });
+  };
 
-return (
-    <Box bg="white" w="100%" p={4} color="black">
-        <h1>Hello, please login!</h1>
-        <form onSubmit={handleLoginSubmit}>
+  return (
+    <form onSubmit={handleLoginSubmit}>
+      <Box p={4} d="flex" justifyContent="center">
+        <Box maxW="sm" borderWidth="1px" rounded="lg" overflow="hidden">
+          <h1>Hello, please login!</h1>
+          <InputGroup size="sm">
             <Input
-                type='text'
-                name='username'
-                variant="flushed"
-                value={credentials.username}
-                onChange={handleInputChanges}
+              type="text"
+              name="username"
+              variant="flushed"
+              placeholder="Username"
+              value={credentials.username}
+              onChange={handleChanges}
             />
             <Input
-                type='password'
-                name='password'
-                variant="flushed"
-                value={credentials.password}
-                onChange={handleInputChanges}
+              type="password"
+              name="password"
+              variant="flushed"
+              placeholder="Password"
+              value={credentials.password}
+              onChange={handleChanges}
             />
-            <Button type='submit'>
-                {isLoading ? 'Logging in...' : 'Log in'}
-            </Button>
-        </form>
-    </Box>
-);
-}
+          </InputGroup>
+          <Button type="submit">
+            {isLoading ? "Logging in..." : "Log in"}
+          </Button>
+        </Box>
+      </Box>
+    </form>
+  );
+};
 
 export default Login;
