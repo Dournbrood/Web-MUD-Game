@@ -8,6 +8,7 @@ import NavBar from './Components/NavBar'
 import Login from './Components/Login'
 import SignUp from './Components/SignUp'
 import { ThemeProvider, theme } from '@chakra-ui/core';
+import Map from './Components/Map';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
             </Route>
             <Route path='/register'>
                 <SignUp />
+            </Route>
+            <Route path='/map'>
+                <Map width={500} height={500} />
             </Route>
         </Router>
     </ThemeProvider>
