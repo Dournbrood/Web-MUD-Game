@@ -43,6 +43,11 @@ const NavBar = () => {
                             Sign Up
                         </Button>
                     </NavLink>
+                    <NavLink to='/map'>
+                        <Button variant="outline" mr={3} onClick={onClose}>
+                            Map
+                        </Button>
+                    </NavLink>
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>
