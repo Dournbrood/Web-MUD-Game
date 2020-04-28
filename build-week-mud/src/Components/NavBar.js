@@ -35,12 +35,12 @@ const NavBar = () => {
                 <DrawerFooter>
                     <NavLink to='/login'>
                         <Button variant="outline" mr={3} onClick={onClose}>
-                        Log In
+                            Log In
                         </Button>
                     </NavLink>
                     <NavLink to='/register'>
                         <Button variant="outline" mr={3} onClick={onClose}>
-                        Sign Up
+                            Sign Up
                         </Button>
                     </NavLink>
                 </DrawerFooter>
