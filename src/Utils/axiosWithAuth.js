@@ -2,10 +2,10 @@ import axios from "axios";
 
 export const axiosWithAuth = () => {
   // t-t-t-TOKEN?!
-  const token = localStorage.getItem("Token");
+  const token = localStorage.getItem("token");
 
   return axios.create({
-    baseURL: "https://django-cs-unit1-nasra-mack.herokuapp.com/api/",
+    baseURL: "our-api-goes-here",
     headers: {
       authorization: token,
     },

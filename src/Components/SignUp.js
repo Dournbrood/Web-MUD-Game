@@ -42,7 +42,7 @@ const handleChanges = e => {
 }
 
     return(
-        <form action="submit">
+        <form action="submit" onSubmit = {handleSubmit}>
             <Stack spacing = {4} align = "center">
                 <FormControl isRequired>
                     <InputGroup>
