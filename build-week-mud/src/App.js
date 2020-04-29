@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -8,25 +8,33 @@ import NavBar from './Components/NavBar'
 import Login from './Components/Login'
 import SignUp from './Components/SignUp'
 import { ThemeProvider, theme } from '@chakra-ui/core';
+import Context from './context/context';
 import Map from './Components/Map';
 
 function App() {
+  // This holds the state to pass via provider we probably need it whenever we check for those credentials to login 
+  const [credentials, setCredentials] = useState({
+    username: '',
+    password: ''
+  })
+
   return (
-    <ThemeProvider theme={theme}>
-        <div> MUD Front End </div>
-        <Router>
-            <NavBar />
-            <Route path='/login'>
-                <Login />
-            </Route>
-            <Route path='/register'>
-                <SignUp />
-            </Route>
-            <Route path='/map'>
+    <Context.Provider value = {{credentials, setCredentials}}>
+      <ThemeProvider theme={theme}>
+          <Router>
+              <NavBar />
+              <Route path='/login'>
+                  <Login />
+              </Route>
+              <Route path='/register'>
+                  <SignUp />
+              </Route>
+              <Route path='/map'>
                 <Map width={500} height={500} />
-            </Route>
-        </Router>
-    </ThemeProvider>
+              </Route>
+          </Router>
+      </ThemeProvider>
+    </Context.Provider>
   );
 }
 

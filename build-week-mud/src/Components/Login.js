@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Input, Button, Box, InputGroup } from "@chakra-ui/core";
+import { axiosWithAuth } from "../Utils/axiosWithAuth";
 
 const Login = (props) => {
   const [credentials, setCredentials] = useState({
@@ -20,18 +21,20 @@ const Login = (props) => {
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    //   axiosWithAuth()
-    //     .post("", credentials)
-    //     .then((response) => {
-    //       setCredentials({
-    //         username: "",
-    //         password: "",
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       console.log("Invalid Login: ", error);
-    //       setIsLoading(false);
-    //     });
+    axiosWithAuth()
+      .post("", credentials)
+      .then((response) => {
+        localStorage.setItem("token", response.data.token);
+
+        setCredentials({
+          username: "",
+          password: "",
+        });
+      })
+      .catch((error) => {
+        console.log("Invalid Login: ", error);
+        setIsLoading(false);
+      });
   };
 
   return (
