@@ -15,23 +15,21 @@ function App() {
   // This holds the state to pass via provider we probably need it whenever we check for those credentials to login 
   const [credentials, setCredentials] = useState({
     username: '',
-    password: ''
+    password1: '',
+    password2: ''
   })
 
+  // user state
+  const [user, setUser] = useState({});
+
   return (
-    <Context.Provider value = {{credentials, setCredentials}}>
+    <Context.Provider value = {{credentials, setCredentials, user, setUser}}>
       <ThemeProvider theme={theme}>
           <Router>
               <NavBar />
-              <Route path='/login'>
-                  <Login />
-              </Route>
-              <Route path='/register'>
-                  <SignUp />
-              </Route>
-              <Route path='/map'>
-                <Map width={500} height={500} />
-              </Route>
+              <Route path='/login' component = {Login}/>
+              <Route path='/register' component = {SignUp}/>
+              <Route path='/map' component = {() => <Map width={500} height={500} />}/>
           </Router>
       </ThemeProvider>
     </Context.Provider>
