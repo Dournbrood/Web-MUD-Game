@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
+import {BrowserRouter} from "react-router-dom";
 import Context from "../context/context";
-import axios from "axios";
 import {
     Input,
     FormControl,
@@ -11,6 +11,7 @@ import {
     Button,
     Stack,
 } from "@chakra-ui/core";
+import { axiosWithAuth } from "../Utils/axiosWithAuth";
 
 const SignUp = (props) => {
 
@@ -21,13 +22,13 @@ const {credentials, setCredentials, setUser} = useContext(Context);
 const handleSubmit = e => {
     e.preventDefault();
     // axios call here
-    axios
+    axiosWithAuth()
         .post("registration/", credentials)
         .then(response => {
             console.log(response);
             localStorage.setItem("Token", response.data.token);
             setUser(response.data.user);
-            props.history.push("Map/");
+            props.history.push("/map");
         })
         .catch(error =>  console.log(error))
     

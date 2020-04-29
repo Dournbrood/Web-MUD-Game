@@ -27,15 +27,15 @@ function App() {
       <ThemeProvider theme={theme}>
           <Router>
               <NavBar />
-              <Route path='/login'>
-                  <Login />
-              </Route>
-              <Route path='/register'>
-                  <SignUp />
-              </Route>
-              <Route path='/map'>
-                <Map width={500} height={500} />
-              </Route>
+              <Route path='/login' component = {Login}/>
+                  {/* <Login /> */}
+              {/* </Route> */}
+              <Route path='/register' component = {SignUp}/>
+                  {/* <SignUp /> */}
+              {/* </Route> */}
+              <Route path='/map' component = {() => <Map width={500} height={500} />}/>
+                
+              {/* </Route> */}
           </Router>
       </ThemeProvider>
     </Context.Provider>
