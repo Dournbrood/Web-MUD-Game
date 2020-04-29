@@ -22,14 +22,19 @@ const Login = (props) => {
     event.preventDefault();
     setIsLoading(true);
     axiosWithAuth()
-      .post("", credentials)
+      .post("login/", credentials)
       .then((response) => {
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("Token", response.data.token);
 
         setCredentials({
           username: "",
           password: "",
         });
+
+        // will be implemented once store is up
+        // dispatch({type: "LOGIN_SUCCESS", payload: response.data})
+
+        props.history.push("/Map");
       })
       .catch((error) => {
         console.log("Invalid Login: ", error);
