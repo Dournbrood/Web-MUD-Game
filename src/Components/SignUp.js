@@ -1,10 +1,8 @@
-import React, {useContext, useState} from "react";
-import {BrowserRouter} from "react-router-dom";
+import React, {useContext} from "react";
 import Context from "../context/context";
 import {
     Input,
     FormControl,
-    FormLabel,
     Icon,
     InputGroup,
     InputLeftElement,
