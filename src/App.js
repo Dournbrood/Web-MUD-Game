@@ -28,14 +28,8 @@ function App() {
           <Router>
               <NavBar />
               <Route path='/login' component = {Login}/>
-                  {/* <Login /> */}
-              {/* </Route> */}
               <Route path='/register' component = {SignUp}/>
-                  {/* <SignUp /> */}
-              {/* </Route> */}
               <Route path='/map' component = {() => <Map width={500} height={500} />}/>
-                
-              {/* </Route> */}
           </Router>
       </ThemeProvider>
     </Context.Provider>

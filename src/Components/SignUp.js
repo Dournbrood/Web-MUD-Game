@@ -25,7 +25,6 @@ const handleSubmit = e => {
     axiosWithAuth()
         .post("registration/", credentials)
         .then(response => {
-            console.log(response);
             localStorage.setItem("Token", response.data.token);
             setUser(response.data.user);
             props.history.push("/map");
