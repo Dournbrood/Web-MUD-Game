@@ -36,7 +36,7 @@ export default function Map({ width, height }) {
             .catch(err => {
                 console.log('error: ', err)
             })
-        console.log(nodes)
+        // console.log(nodes)
     }, [])
 
     return (
@@ -56,21 +56,21 @@ export default function Map({ width, height }) {
                     key={node.id}
                     cx={xScale(node.x * 10 + 5)}
                     cy={yScale(node.y * 10 + 5)}
-                    r="5"
+                    r="7"
                     fill={node.active === true ? "yellow" : "teal"}
                     />
                 )) : null}
-                {/* {nodes.length > 0 ? nodes.map((node, i) => (
+                {nodes.length > 0 ? nodes.map((node, i) => (
                     <line
                     key={i}
-                    x1={xScale(node.x)}
-                    x2={xScale(node.x)}
-                    y1={yScale(node.y)}
-                    y2={yScale(node.y)}
+                    x1={xScale(node.x)} // node.x
+                    x2={xScale(node.x)} // next node.x
+                    y1={yScale(node.y)} // node.y
+                    y2={yScale(node.y)} // next node.y
                     strokeWidth={2}
                     stroke="teal"
                     />
-                )) : null} */}
+                )) : null}
             </svg>
         </div>
     );
