@@ -30,8 +30,8 @@ const Login = (props) => {
     axiosWithAuth()
       .post("login/", credentials)
       .then((response) => {
-        localStorage.setItem("Token", response.data.token);
-
+        localStorage.setItem("Token", response.data.key);
+        
         setCredentials({
           username: "",
           password: "",
