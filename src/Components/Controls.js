@@ -26,7 +26,7 @@ const Controls = () => {
                     textTransform="uppercase"
                     ml="2"
                 >
-                    Use the controls below to direct your character around the map.
+                    Use the controls below to navigate the map.
                 </Box>
             </Box>
             <Box maxW='m' borderWidth='1px' rounded='lg'>
