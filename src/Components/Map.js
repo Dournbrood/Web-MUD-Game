@@ -37,7 +37,7 @@ export default function Map({ width, height }) {
                 console.log('error: ', err)
             })
         console.log(nodes)
-    }, [nodes])
+    }, [])
 
     return (
         <div id="map" style={mapStyles}>
