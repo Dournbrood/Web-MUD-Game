@@ -13,6 +13,7 @@ import {
 import { axiosWithAuth } from '../Utils/axiosWithAuth'
 
 const Controls = () => {
+    
     // handle up, down, left, right functions
     const handleUp = (e) => {
         e.preventDefault()
