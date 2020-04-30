@@ -10,9 +10,57 @@ import {
     FaArrowAltCircleRight,
     FaArrowAltCircleUp
 } from 'react-icons/fa'
+import { axiosWithAuth } from '../Utils/axiosWithAuth'
 
 const Controls = () => {
     // handle up, down, left, right functions
+    const handleUp = (e) => {
+        e.preventDefault()
+        axiosWithAuth()
+            .post('adv/move/', {"direction":"n"})
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log('error moving up ', err)
+            })
+    }
+
+    const handleLeft = (e) => {
+        e.preventDefault()
+        axiosWithAuth()
+            .post('adv/move/', {"direction":"w"})
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log('error moving left ', err)
+            })
+    }
+
+    const handleRight = (e) => {
+        e.preventDefault()
+        axiosWithAuth()
+            .post('adv/move/', {"direction":"e"})
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
+    const handleDown = (e) => {
+        e.preventDefault()
+        axiosWithAuth()
+            .post('adv/move/', {"direction":"s"})
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
 
     // return jsx UI
     return(
@@ -30,20 +78,20 @@ const Controls = () => {
                 </Box>
             </Box>
             <Box maxW='m' borderWidth='1px' rounded='lg'>
-                <Button variantColor='teal'>
+                <Button variantColor='teal' onClick={handleUp}>
                     <FaArrowAltCircleUp />
                 </Button>
             </Box>
             <Box maxW='m' borderWidth='1px' rounded='lg'>
-                <Button variantColor='teal'>
+                <Button variantColor='teal' onClick={handleLeft}>
                     <FaArrowAltCircleLeft />
                 </Button>
-                <Button variantColor='teal'>
+                <Button variantColor='teal' onClick={handleRight}>
                     <FaArrowAltCircleRight />
                 </Button>
             </Box>
             <Box maxW='m' borderWidth='1px' rounded='lg'>
-                <Button variantColor='teal'>
+                <Button variantColor='teal' onClick={handleDown}>
                     <FaArrowAltCircleDown />
                 </Button>
             </Box>

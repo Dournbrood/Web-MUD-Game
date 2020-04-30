@@ -34,11 +34,11 @@ export default function Map({ width, height }) {
             .then(res => {
                 let node_data = res.data.all_rooms
                 setNodes(node_data)
+                console.log(nodes)
             })
             .catch(err => {
                 console.log('error: ', err)
             })
-        console.log(nodes)
     }, [])
 
     return (
