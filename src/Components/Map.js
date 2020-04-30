@@ -19,6 +19,7 @@ var svgStyles = { position: "absolute", top: 0, left: 0, right: 0, bottom: 0 };
 
 export default function Map({ width, height }) {
     const [nodes, setNodes] = useState([])
+    const [nextNode, setNextNode] = useState({})
     var xScale = scaleLinear()
         .domain([0, 100])
         .range([0, width]);
@@ -61,15 +62,18 @@ export default function Map({ width, height }) {
                     />
                 )) : null}
                 {nodes.length > 0 ? nodes.map((node, i) => (
-                    <line
-                    key={i}
-                    x1={xScale(node.x)} // node.x
-                    x2={xScale(node.x)} // next node.x
-                    y1={yScale(node.y)} // node.y
-                    y2={yScale(node.y)} // next node.y
-                    strokeWidth={2}
-                    stroke="teal"
-                    />
+                    <div key={i}>
+                        {setNextNode(nodes.filter(item => item.id === node.id + 1))}
+                        <line
+                            key={i}
+                            x1={xScale(node.x)} // node.x
+                            x2={xScale(nextNode.x)} // next node.x
+                            y1={yScale(node.y)} // node.y
+                            y2={yScale(nextNode.y)} // next node.y
+                            strokeWidth={2}
+                            stroke="teal"
+                        />
+                    </div>
                 )) : null}
             </svg>
         </div>
