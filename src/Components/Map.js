@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { scaleLinear } from "d3-scale";
 import { axiosWithAuth } from "../Utils/axiosWithAuth";
 
@@ -35,23 +35,25 @@ export default function Map({ width, height }) {
 //     .domain([0, 100])
 //     .range([0, height]);
 
-    axiosWithAuth()
-        .get('adv/map')
-        .then(res => {
-            let node_data = res.data.all_rooms
-            node_data.forEach(element => {
-                const node = {
-                    x: element.x * 10,
-                    y: element.y * 10,
-                    room_id: element.id
-                }
-                nodes.push(node)
-            });
-        })
-        .catch(err => {
-            console.log('error: ', err)
-        })
+    useEffect(() => {
+        axiosWithAuth()
+            .get('adv/map')
+            .then(res => {
+                let node_data = res.data.all_rooms
+                node_data.forEach(element => {
+                    const node = {
+                        x: element.x * 10,
+                        y: element.y * 10,
+                        room_id: element.id
+                    }
+                    nodes.push(node)
+                });
+            })
+            .catch(err => {
+                console.log('error: ', err)
+            })
         console.log(nodes)
+    }, [nodes])
 
   return (
     <div id="map" style={mapStyles}>
