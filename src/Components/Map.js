@@ -51,26 +51,26 @@ export default function Map({ width, height }) {
                 height={height}
                 viewBox={`0 0 ${width} ${height}`}
             >
-                {nodes.map(node => (
+                {nodes.length > 0 ? nodes.map(node => (
                     <circle
-                    key={node.room_id}
-                    cx={xScale(node.x * 10)}
-                    cy={yScale(node.y * 10)}
+                    key={node.id}
+                    cx={xScale(node.x * 10 + 5)}
+                    cy={yScale(node.y * 10 + 5)}
                     r="5"
                     fill={node.active === true ? "yellow" : "teal"}
                     />
-                ))}
-                {/* {links.map((link, i) => (
+                )) : null}
+                {/* {nodes.length > 0 ? nodes.map((node, i) => (
                     <line
                     key={i}
-                    x1={nodes[link.start].x}
-                    x2={nodes[link.end].x}
-                    y1={nodes[link.start].y}
-                    y2={nodes[link.end].y}
+                    x1={xScale(node.x)}
+                    x2={xScale(node.x)}
+                    y1={yScale(node.y)}
+                    y2={yScale(node.y)}
                     strokeWidth={2}
                     stroke="teal"
                     />
-                ))} */}
+                )) : null} */}
             </svg>
         </div>
     );
