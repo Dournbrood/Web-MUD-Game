@@ -4,6 +4,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
+import PrivateRoute from './Utils/PrivateRoute'
 import NavBar from './Components/NavBar'
 import Login from './Components/Login'
 import SignUp from './Components/SignUp'
@@ -29,7 +30,7 @@ function App() {
               <NavBar />
               <Route exact path='/' component = {Login}/>
               <Route path='/register' component = {SignUp}/>
-              <Route path='/map' component = {LandingPage}/>
+              <PrivateRoute path='/map' component = {LandingPage}/>
           </Router>
       </ThemeProvider>
     </Context.Provider>
