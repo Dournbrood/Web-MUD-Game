@@ -17,7 +17,7 @@ const Controls = () => {
     // return jsx UI
     return(
         <Stack spacing={0} align="center">
-            <Box maxW="m" borderWidth='10px' rounded='lg'>
+            <Box maxW="md" borderWidth='10px' rounded='lg'>
                 <Box
                     color="gray.500"
                     fontWeight="semibold"
