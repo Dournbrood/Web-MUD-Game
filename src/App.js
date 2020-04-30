@@ -9,7 +9,7 @@ import Login from './Components/Login'
 import SignUp from './Components/SignUp'
 import { ThemeProvider, theme } from '@chakra-ui/core';
 import Context from './context/context';
-import Map from './Components/Map';
+import LandingPage from './Pages/LandingPage';
 
 function App() {
   // This holds the state to pass via provider we probably need it whenever we check for those credentials to login 
@@ -27,9 +27,9 @@ function App() {
       <ThemeProvider theme={theme}>
           <Router>
               <NavBar />
-              <Route path='/login' component = {Login}/>
+              <Route exact path='/' component = {Login}/>
               <Route path='/register' component = {SignUp}/>
-              <Route path='/map' component = {() => <Map width={500} height={500} />}/>
+              <Route path='/map' component = {LandingPage}/>
           </Router>
       </ThemeProvider>
     </Context.Provider>
