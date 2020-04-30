@@ -1,5 +1,12 @@
 import React, { useState, useContext } from "react";
-import { Input, Button, Box, InputGroup } from "@chakra-ui/core";
+import {
+  Input,
+  Button,
+  Box,
+  InputGroup,
+  Stack,
+  FormControl,
+} from "@chakra-ui/core";
 import { axiosWithAuth } from "../Utils/axiosWithAuth";
 
 const Login = (props) => {
@@ -17,7 +24,6 @@ const Login = (props) => {
       [event.target.name]: event.target.value,
     });
   };
-
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -44,32 +50,47 @@ const Login = (props) => {
 
   return (
     <form onSubmit={handleLoginSubmit}>
-      <Box p={4} d="flex" justifyContent="center">
-        <Box maxW="sm" borderWidth="1px" rounded="lg" overflow="hidden">
-          <h1>Hello, please login!</h1>
-          <InputGroup size="sm">
+      <Stack spacing={4} align="center">
+        <FormControl isRequired>
+          <InputGroup>
             <Input
+              variant="filled"
+              size="lg"
+              id="username"
               type="text"
               name="username"
-              variant="flushed"
               placeholder="Username"
+              aria-label="Username"
               value={credentials.username}
               onChange={handleChanges}
             />
+          </InputGroup>
+        </FormControl>
+        <FormControl isRequired>
+          <InputGroup>
             <Input
+              variant="filled"
+              size="lg"
+              id="password"
               type="password"
               name="password"
-              variant="flushed"
               placeholder="Password"
+              aria-label="Password"
               value={credentials.password}
               onChange={handleChanges}
             />
           </InputGroup>
-          <Button type="submit">
-            {isLoading ? "Logging in..." : "Log in"}
-          </Button>
-        </Box>
-      </Box>
+        </FormControl>
+        <Button
+          type="submit"
+          boxShadow="lg"
+          _hover={{ boxShadow: "lg" }}
+          _active={{ boxShadow: "lg" }}
+          variantColor="teal"
+        >
+          {isLoading ? "Logging in..." : "Log in"}
+        </Button>
+      </Stack>
     </form>
   );
 };
