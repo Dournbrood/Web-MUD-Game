@@ -3,23 +3,12 @@ import { scaleLinear } from "d3-scale";
 import { axiosWithAuth } from "../Utils/axiosWithAuth";
 import { Box } from "@chakra-ui/core";
 
-var links = [
-  //   { start: 11, end: 12 },
-  //   { start: 1, end: 2 },
-  //   { start: 2, end: 3 },
-  //   { start: 1, end: 4 },
-  //   { start: 0, end: 5 },
-  //   { start: 5, end: 6 },
-  //   { start: 5, end: 7 },
-  //   { start: 4, end: 7 }
-];
-
 var mapStyles = { position: "relative" };
 var svgStyles = { position: "absolute", top: 0, left: 0, right: 0, bottom: 0 };
 
 export default function Map({ width, height }) {
   const [nodes, setNodes] = useState([]);
-  const [nextNode, setNextNode] = useState([]);
+
   var xScale = scaleLinear().domain([0, 100]).range([0, width]);
   var yScale = scaleLinear().domain([0, 100]).range([0, height]);
 
@@ -33,7 +22,7 @@ export default function Map({ width, height }) {
       .catch((err) => {
         console.log("error: ", err);
       });
-    console.log(nodes);
+    // console.log(nodes);
   }, []);
 
   return (

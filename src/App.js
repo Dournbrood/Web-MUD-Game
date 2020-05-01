@@ -10,7 +10,9 @@ import Login from './Components/Login'
 import SignUp from './Components/SignUp'
 import { ThemeProvider, theme } from '@chakra-ui/core';
 import Context from './context/context';
+import RoomContext from './context/RoomContext'
 import LandingPage from './Pages/LandingPage';
+import { axiosWithAuth } from './Utils/axiosWithAuth'
 
 function App() {
   // This holds the state to pass via provider we probably need it whenever we check for those credentials to login 
@@ -23,19 +25,34 @@ function App() {
   // user state
   const [user, setUser] = useState({});
 
+  
   // room data state
-  const [roomData, setRoomData] = useState({})
+  const updateRoom = () => {
+      axiosWithAuth()
+      .get('/adv/init')
+      .then(res => {
+          console.log(res)
+          setRoomData(res.data)
+        })
+        .catch(err => {
+            console.error(err)
+        })
+    }
+    
+    const [roomData, setRoomData] = useState({})
 
   return (
-    <Context.Provider value = {{credentials, setCredentials, user, setUser, roomData, setRoomData}}>
-      <ThemeProvider theme={theme}>
-          <Router>
-              <NavBar />
-              <Route exact path='/' component = {Login}/>
-              <Route path='/register' component = {SignUp}/>
-              <PrivateRoute path='/map' component = {LandingPage}/>
-          </Router>
-      </ThemeProvider>
+      <Context.Provider value = {{credentials, setCredentials, user, setUser}}>
+        <RoomContext.Provider value={{roomData, setRoomData, updateRoom}}>
+            <ThemeProvider theme={theme}>
+                <Router>
+                    <NavBar />
+                    <Route exact path='/' component = {Login}/>
+                    <Route path='/register' component = {SignUp}/>
+                    <PrivateRoute path='/map' component = {LandingPage}/>
+                </Router>
+            </ThemeProvider>
+        </RoomContext.Provider>
     </Context.Provider>
   );
 }

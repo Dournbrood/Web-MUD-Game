@@ -4,23 +4,14 @@ import {
     Box
 } from '@chakra-ui/core'
 import { axiosWithAuth } from '../Utils/axiosWithAuth'
-import Context from '../context/context'
+import RoomContext from '../context/RoomContext'
 
 
 const Display = () => {
-    const [roomData, setRoomData] = useContext(Context)
-    // Get room info
-    // probably in some kind of useEffect to update every time a player moves rooms
+    const { roomData, updateRoom} = useContext(RoomContext)
+
     useEffect(() => {
-        axiosWithAuth()
-            .get('/adv/init')
-            .then(res => {
-                console.log(res)
-                setRoomData(res.data)
-            })
-            .catch(err => {
-                console.error(err)
-            })
+        updateRoom()
     }, [])
 
     return(
@@ -52,15 +43,18 @@ const Display = () => {
                 >
                     {roomData.description}
                 </Box>
-                {roomData.players > 0 ? 
-                <>
-                <p>Other players in room:</p>
-                {roomData.players.map(player => {
+                <p>Other players in this room:</p>
+                {roomData.players ? roomData.players.map(player => {
                     return(<p>{player}</p>)
-                })}
-                </> : 
-                <>
-                </>
+                }) : <Box 
+                        mt="1"
+                        fontWeight="semibold"
+                        as="p"
+                        lineHeight="tight"
+                        isTruncated
+                    >
+                        None
+                    </Box>
                 }
             </Stack>
         </Box>

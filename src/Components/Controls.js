@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
     Button,
     Box,
@@ -11,9 +11,11 @@ import {
     FaArrowAltCircleUp
 } from 'react-icons/fa'
 import { axiosWithAuth } from '../Utils/axiosWithAuth'
+import RoomContext from '../context/RoomContext'
 
 const Controls = () => {
-    
+    const { updateRoom }
+ = useContext(RoomContext)    
     // handle up, down, left, right functions
     const handleUp = (e) => {
         e.preventDefault()
@@ -21,6 +23,7 @@ const Controls = () => {
             .post('adv/move/', {"direction":"n"})
             .then(res => {
                 console.log(res)
+                updateRoom()
             })
             .catch(err => {
                 console.log('error moving up ', err)
@@ -33,6 +36,7 @@ const Controls = () => {
             .post('adv/move/', {"direction":"w"})
             .then(res => {
                 console.log(res)
+                updateRoom()
             })
             .catch(err => {
                 console.log('error moving left ', err)
@@ -45,6 +49,7 @@ const Controls = () => {
             .post('adv/move/', {"direction":"e"})
             .then(res => {
                 console.log(res)
+                updateRoom()
             })
             .catch(err => {
                 console.error(err)
@@ -57,6 +62,7 @@ const Controls = () => {
             .post('adv/move/', {"direction":"s"})
             .then(res => {
                 console.log(res)
+                updateRoom()
             })
             .catch(err => {
                 console.error(err)
