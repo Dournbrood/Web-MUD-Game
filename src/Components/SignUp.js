@@ -9,7 +9,8 @@ import {
     Button,
     Stack,
 } from "@chakra-ui/core";
-import { axiosWithAuth } from "../Utils/axiosWithAuth";
+// import { axiosWithAuth } from "../Utils/axiosWithAuth";
+import Axios from 'axios'
 
 const SignUp = (props) => {
 
@@ -20,8 +21,8 @@ const {credentials, setCredentials, setUser} = useContext(Context);
 const handleSubmit = e => {
     e.preventDefault();
     // axios call here
-    axiosWithAuth()
-        .post("registration/", credentials)
+    Axios
+        .post("https://django-cs-unit1-nasra-mack.herokuapp.com/api/registration/", credentials)
         .then(response => {
             localStorage.setItem("Token", response.data.key);
             setUser(response.data.user);
