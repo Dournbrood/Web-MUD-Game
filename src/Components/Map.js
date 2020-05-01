@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { scaleLinear } from "d3-scale";
 import { axiosWithAuth } from "../Utils/axiosWithAuth";
 import { Box } from "@chakra-ui/core";
-
-var links = [
-  //   { start: 11, end: 12 },
-  //   { start: 1, end: 2 },
-  //   { start: 2, end: 3 },
-  //   { start: 1, end: 4 },
-  //   { start: 0, end: 5 },
-  //   { start: 5, end: 6 },
-  //   { start: 5, end: 7 },
-  //   { start: 4, end: 7 }
-];
+import RoomContext from '../context/RoomContext'
 
 var mapStyles = { position: "relative" };
 var svgStyles = { position: "absolute", top: 0, left: 0, right: 0, bottom: 0 };
 
 export default function Map({ width, height }) {
   const [nodes, setNodes] = useState([]);
-  const [nextNode, setNextNode] = useState([]);
+  const { roomData } = useContext(RoomContext)
+
   var xScale = scaleLinear().domain([0, 100]).range([0, width]);
   var yScale = scaleLinear().domain([0, 100]).range([0, height]);
 
@@ -29,11 +20,12 @@ export default function Map({ width, height }) {
       .then((res) => {
         let node_data = res.data.all_rooms;
         setNodes(node_data);
+        console.log(roomData)
       })
       .catch((err) => {
         console.log("error: ", err);
       });
-    console.log(nodes);
+    // console.log(nodes);
   }, []);
 
   return (
@@ -50,22 +42,11 @@ export default function Map({ width, height }) {
           viewBox={`0 0 ${width} ${height}`}
         >
           {nodes.length > 0
-            ? nodes.map((node) => (
-                <circle
-                  key={node.id}
-                  cx={xScale(node.x * 10 + 5)}
-                  cy={yScale(node.y * 10 + 5)}
-                  r="7"
-                  fill={node.active === true ? "yellow" : "teal"}
-                />
-              ))
-            : null}
-          {nodes.length > 0
             ? nodes.map((node, i) => (
                 <>
                   {node.n_to !== 0 ? (
                     <line
-                      key={node.id}
+                      key={node.id + 100}
                       x1={xScale(node.x * 10 + 5)} // node.x
                       x2={xScale(node.x * 10 + 5)} // next node.x
                       y1={yScale(node.y * 10 + 5)} // node.y
@@ -76,7 +57,7 @@ export default function Map({ width, height }) {
                   ) : null}
                   {node.s_to !== 0 ? (
                     <line
-                      key={node.id}
+                      key={node.id + 200}
                       x1={xScale(node.x * 10 + 5)} // node.x
                       x2={xScale(node.x * 10 + 5)} // next node.x
                       y1={yScale(node.y * 10 + 5)} // node.y
@@ -87,7 +68,7 @@ export default function Map({ width, height }) {
                   ) : null}
                   {node.e_to !== 0 ? (
                     <line
-                      key={node.id}
+                      key={node.id + 300}
                       x1={xScale(node.x * 10 + 5)} // node.x
                       x2={xScale(node.x * 10 + 5 + 9)} // next node.x
                       y1={yScale(node.y * 10 + 5)} // node.y
@@ -98,7 +79,7 @@ export default function Map({ width, height }) {
                   ) : null}
                   {node.w_to !== 0 ? (
                     <line
-                      key={node.id}
+                      key={node.id + 400}
                       x1={xScale(node.x * 10 + 5)} // node.x
                       x2={xScale(node.x * 10 + 5 - 9)} // next node.x
                       y1={yScale(node.y * 10 + 5)} // node.y
@@ -108,6 +89,17 @@ export default function Map({ width, height }) {
                     />
                   ) : null}
                 </>
+              ))
+            : null}
+            {nodes.length > 0
+            ? nodes.map((node) => (
+                <circle
+                  key={node.id}
+                  cx={xScale(node.x * 10 + 5)}
+                  cy={yScale(node.y * 10 + 5)}
+                  r="7"
+                  fill={roomData.title === node.title && roomData.description === node.description ? "yellow" : "teal"}
+                />
               ))
             : null}
         </svg>

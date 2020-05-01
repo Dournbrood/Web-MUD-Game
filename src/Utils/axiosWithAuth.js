@@ -7,7 +7,7 @@ export const axiosWithAuth = () => {
   return axios.create({
     baseURL: "https://django-cs-unit1-nasra-mack.herokuapp.com/api/",
     headers: {
-      authorization: token,
+      Authorization: `Token ${token}`,
     },
   });
 };
