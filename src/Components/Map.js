@@ -21,6 +21,7 @@ var svgStyles = { position: "absolute", top: 0, left: 0, right: 0, bottom: 0 };
 export default function Map({ width, height }) {
     const [nodes, setNodes] = useState([])
     const [nextNode, setNextNode] = useState([])
+    
     var xScale = scaleLinear()
         .domain([0, 100])
         .range([0, width]);

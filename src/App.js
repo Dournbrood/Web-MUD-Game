@@ -23,8 +23,11 @@ function App() {
   // user state
   const [user, setUser] = useState({});
 
+  // room data state
+  const [roomData, setRoomData] = useState({})
+
   return (
-    <Context.Provider value = {{credentials, setCredentials, user, setUser}}>
+    <Context.Provider value = {{credentials, setCredentials, user, setUser, roomData, setRoomData}}>
       <ThemeProvider theme={theme}>
           <Router>
               <NavBar />
