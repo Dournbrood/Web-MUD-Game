@@ -1,73 +1,117 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { scaleLinear } from "d3-scale";
-
-var nodes = [
-  { x: 40, y: 60 },
-  { x: 50, y: 60, active: true },
-  { x: 50, y: 50 },
-  { x: 50, y: 40},
-  { x: 50, y: 70 },
-  { x: 60, y: 60 },
-  { x: 70, y: 60 },
-  { x: 60, y: 70 }
-];
+import { axiosWithAuth } from "../Utils/axiosWithAuth";
+import { Box } from "@chakra-ui/core";
 
 var links = [
-  { start: 0, end: 1 },
-  { start: 1, end: 2 },
-  { start: 2, end: 3 },
-  { start: 1, end: 4 },
-  { start: 0, end: 5 },
-  { start: 5, end: 6 },
-  { start: 5, end: 7 },
-  { start: 4, end: 7 }
+  //   { start: 11, end: 12 },
+  //   { start: 1, end: 2 },
+  //   { start: 2, end: 3 },
+  //   { start: 1, end: 4 },
+  //   { start: 0, end: 5 },
+  //   { start: 5, end: 6 },
+  //   { start: 5, end: 7 },
+  //   { start: 4, end: 7 }
 ];
 
 var mapStyles = { position: "relative" };
 var svgStyles = { position: "absolute", top: 0, left: 0, right: 0, bottom: 0 };
 
 export default function Map({ width, height }) {
-  var xScale = scaleLinear()
-    .domain([0, 100])
-    .range([0, width]);
-  var yScale = scaleLinear()
-    .domain([0, 100])
-    .range([0, height]);
+  const [nodes, setNodes] = useState([]);
+  const [nextNode, setNextNode] = useState([]);
+  var xScale = scaleLinear().domain([0, 100]).range([0, width]);
+  var yScale = scaleLinear().domain([0, 100]).range([0, height]);
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get("adv/map")
+      .then((res) => {
+        let node_data = res.data.all_rooms;
+        setNodes(node_data);
+      })
+      .catch((err) => {
+        console.log("error: ", err);
+      });
+    console.log(nodes);
+  }, []);
 
   return (
-    <div id="map" style={mapStyles}>
-      <img
-        src="https://m.media-amazon.com/images/I/21sTBN6+unL._SR500,500_.jpg"
-        alt="map background"
-      />
-      <svg
-        style={svgStyles}
-        width={width}
-        height={height}
-        viewBox={`0 0 ${width} ${height}`}
-      >
-        {links.map((link, i) => (
-          <line
-            key={i}
-            x1={xScale(nodes[link.start].x)}
-            x2={xScale(nodes[link.end].x)}
-            y1={yScale(nodes[link.start].y)}
-            y2={yScale(nodes[link.end].y)}
-            strokeWidth={2}
-            stroke="teal"
-          />
-        ))}
-        {nodes.map((node, i) => (
-          <circle
-            key={i}
-            cx={xScale(node.x)}
-            cy={yScale(node.y)}
-            r="5"
-            fill={node.active === true ? "yellow" : "teal"}
-          />
-        ))}
-      </svg>
-    </div>
+    <Box>
+      <div id="map" style={mapStyles}>
+        <img
+          src="https://m.media-amazon.com/images/I/21sTBN6+unL._SR500,500_.jpg"
+          alt="map background"
+        />
+        <svg
+          style={svgStyles}
+          width={width}
+          height={height}
+          viewBox={`0 0 ${width} ${height}`}
+        >
+          {nodes.length > 0
+            ? nodes.map((node) => (
+                <circle
+                  key={node.id}
+                  cx={xScale(node.x * 10 + 5)}
+                  cy={yScale(node.y * 10 + 5)}
+                  r="7"
+                  fill={node.active === true ? "yellow" : "teal"}
+                />
+              ))
+            : null}
+          {nodes.length > 0
+            ? nodes.map((node, i) => (
+                <>
+                  {node.n_to !== 0 ? (
+                    <line
+                      key={node.id}
+                      x1={xScale(node.x * 10 + 5)} // node.x
+                      x2={xScale(node.x * 10 + 5)} // next node.x
+                      y1={yScale(node.y * 10 + 5)} // node.y
+                      y2={yScale(node.y * 10 + 5 + 9)} // next node.y
+                      strokeWidth={3}
+                      stroke="teal"
+                    />
+                  ) : null}
+                  {node.s_to !== 0 ? (
+                    <line
+                      key={node.id}
+                      x1={xScale(node.x * 10 + 5)} // node.x
+                      x2={xScale(node.x * 10 + 5)} // next node.x
+                      y1={yScale(node.y * 10 + 5)} // node.y
+                      y2={yScale(node.y * 10 + 5 - 9)} // next node.y
+                      strokeWidth={3}
+                      stroke="teal"
+                    />
+                  ) : null}
+                  {node.e_to !== 0 ? (
+                    <line
+                      key={node.id}
+                      x1={xScale(node.x * 10 + 5)} // node.x
+                      x2={xScale(node.x * 10 + 5 + 9)} // next node.x
+                      y1={yScale(node.y * 10 + 5)} // node.y
+                      y2={yScale(node.y * 10 + 5)} // next node.y
+                      strokeWidth={3}
+                      stroke="teal"
+                    />
+                  ) : null}
+                  {node.w_to !== 0 ? (
+                    <line
+                      key={node.id}
+                      x1={xScale(node.x * 10 + 5)} // node.x
+                      x2={xScale(node.x * 10 + 5 - 9)} // next node.x
+                      y1={yScale(node.y * 10 + 5)} // node.y
+                      y2={yScale(node.y * 10 + 5)} // next node.y
+                      strokeWidth={3}
+                      stroke="teal"
+                    />
+                  ) : null}
+                </>
+              ))
+            : null}
+        </svg>
+      </div>
+    </Box>
   );
 }
-

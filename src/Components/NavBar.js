@@ -1,7 +1,6 @@
 import React from 'react'
 import {
     Drawer,
-    DrawerBody,
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
@@ -10,6 +9,7 @@ import {
     Button,
     useDisclosure,
 } from "@chakra-ui/core";
+import { FaBars } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 
 const NavBar = () => {
@@ -19,11 +19,11 @@ const NavBar = () => {
     return (
         <>
         <Button  ref={btnRef} variantColor="teal" onClick={onOpen}>
-            Menu
+            <FaBars />
         </Button>
         <Drawer
             isOpen={isOpen}
-            placement="right"
+            placement="left"
             onClose={onClose}
             finalFocusRef={btnRef}
         >
@@ -33,7 +33,7 @@ const NavBar = () => {
                 <DrawerHeader>MUD Menu</DrawerHeader>
         
                 <DrawerFooter>
-                    <NavLink to='/login'>
+                    <NavLink to='/'>
                         <Button variant="outline" mr={3} onClick={onClose}>
                             Log In
                         </Button>
