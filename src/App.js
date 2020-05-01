@@ -31,7 +31,7 @@ function App() {
       axiosWithAuth()
       .get('/adv/init')
       .then(res => {
-          console.log(res)
+        //   console.log(res)
           setRoomData(res.data)
         })
         .catch(err => {

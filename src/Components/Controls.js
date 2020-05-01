@@ -20,9 +20,8 @@ const Controls = () => {
     const handleUp = (e) => {
         e.preventDefault()
         axiosWithAuth()
-            .post('adv/move/', {"direction":"n"})
+            .post('adv/move/', {"direction":"s"})
             .then(res => {
-                console.log(res)
                 updateRoom()
             })
             .catch(err => {
@@ -35,7 +34,6 @@ const Controls = () => {
         axiosWithAuth()
             .post('adv/move/', {"direction":"w"})
             .then(res => {
-                console.log(res)
                 updateRoom()
             })
             .catch(err => {
@@ -48,7 +46,6 @@ const Controls = () => {
         axiosWithAuth()
             .post('adv/move/', {"direction":"e"})
             .then(res => {
-                console.log(res)
                 updateRoom()
             })
             .catch(err => {
@@ -59,9 +56,8 @@ const Controls = () => {
     const handleDown = (e) => {
         e.preventDefault()
         axiosWithAuth()
-            .post('adv/move/', {"direction":"s"})
+            .post('adv/move/', {"direction":"n"})
             .then(res => {
-                console.log(res)
                 updateRoom()
             })
             .catch(err => {

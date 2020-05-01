@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { scaleLinear } from "d3-scale";
 import { axiosWithAuth } from "../Utils/axiosWithAuth";
 import { Box } from "@chakra-ui/core";
+import RoomContext from '../context/RoomContext'
 
 var mapStyles = { position: "relative" };
 var svgStyles = { position: "absolute", top: 0, left: 0, right: 0, bottom: 0 };
 
 export default function Map({ width, height }) {
   const [nodes, setNodes] = useState([]);
+  const { roomData } = useContext(RoomContext)
 
   var xScale = scaleLinear().domain([0, 100]).range([0, width]);
   var yScale = scaleLinear().domain([0, 100]).range([0, height]);
@@ -18,6 +20,7 @@ export default function Map({ width, height }) {
       .then((res) => {
         let node_data = res.data.all_rooms;
         setNodes(node_data);
+        console.log(roomData)
       })
       .catch((err) => {
         console.log("error: ", err);
@@ -38,17 +41,6 @@ export default function Map({ width, height }) {
           height={height}
           viewBox={`0 0 ${width} ${height}`}
         >
-          {nodes.length > 0
-            ? nodes.map((node) => (
-                <circle
-                  key={node.id}
-                  cx={xScale(node.x * 10 + 5)}
-                  cy={yScale(node.y * 10 + 5)}
-                  r="7"
-                  fill={node.active === true ? "yellow" : "teal"}
-                />
-              ))
-            : null}
           {nodes.length > 0
             ? nodes.map((node, i) => (
                 <>
@@ -97,6 +89,17 @@ export default function Map({ width, height }) {
                     />
                   ) : null}
                 </>
+              ))
+            : null}
+            {nodes.length > 0
+            ? nodes.map((node) => (
+                <circle
+                  key={node.id}
+                  cx={xScale(node.x * 10 + 5)}
+                  cy={yScale(node.y * 10 + 5)}
+                  r="7"
+                  fill={roomData.title === node.title && roomData.description === node.description ? "yellow" : "teal"}
+                />
               ))
             : null}
         </svg>

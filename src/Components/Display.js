@@ -46,15 +46,7 @@ const Display = () => {
                 <p>Other players in this room:</p>
                 {roomData.players ? roomData.players.map(player => {
                     return(<p>{player}</p>)
-                }) : <Box 
-                        mt="1"
-                        fontWeight="semibold"
-                        as="p"
-                        lineHeight="tight"
-                        isTruncated
-                    >
-                        None
-                    </Box>
+                }) : <p>None</p>
                 }
             </Stack>
         </Box>
