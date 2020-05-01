@@ -54,7 +54,7 @@ export default function Map({ width, height }) {
                 <>
                   {node.n_to !== 0 ? (
                     <line
-                      key={node.id}
+                      key={node.id + 100}
                       x1={xScale(node.x * 10 + 5)} // node.x
                       x2={xScale(node.x * 10 + 5)} // next node.x
                       y1={yScale(node.y * 10 + 5)} // node.y
@@ -65,7 +65,7 @@ export default function Map({ width, height }) {
                   ) : null}
                   {node.s_to !== 0 ? (
                     <line
-                      key={node.id}
+                      key={node.id + 200}
                       x1={xScale(node.x * 10 + 5)} // node.x
                       x2={xScale(node.x * 10 + 5)} // next node.x
                       y1={yScale(node.y * 10 + 5)} // node.y
@@ -76,7 +76,7 @@ export default function Map({ width, height }) {
                   ) : null}
                   {node.e_to !== 0 ? (
                     <line
-                      key={node.id}
+                      key={node.id + 300}
                       x1={xScale(node.x * 10 + 5)} // node.x
                       x2={xScale(node.x * 10 + 5 + 9)} // next node.x
                       y1={yScale(node.y * 10 + 5)} // node.y
@@ -87,7 +87,7 @@ export default function Map({ width, height }) {
                   ) : null}
                   {node.w_to !== 0 ? (
                     <line
-                      key={node.id}
+                      key={node.id + 400}
                       x1={xScale(node.x * 10 + 5)} // node.x
                       x2={xScale(node.x * 10 + 5 - 9)} // next node.x
                       y1={yScale(node.y * 10 + 5)} // node.y
