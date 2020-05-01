@@ -7,7 +7,8 @@ import {
   Stack,
   FormControl,
 } from "@chakra-ui/core";
-import { axiosWithAuth } from "../Utils/axiosWithAuth";
+// import { axiosWithAuth } from "../Utils/axiosWithAuth";
+import Axios from 'axios'
 
 const Login = (props) => {
   const [credentials, setCredentials] = useState({
@@ -27,8 +28,8 @@ const Login = (props) => {
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    axiosWithAuth()
-      .post("login/", credentials)
+    Axios
+      .post("https://django-cs-unit1-nasra-mack.herokuapp.com/api/login/", credentials)
       .then((response) => {
         localStorage.setItem("Token", response.data.key);
         
